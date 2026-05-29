@@ -24,10 +24,13 @@
 
 <script>
 
+const API =
+"https://fast-clicking-production.up.railway.app";
+
 async function loadRequests(){
 
     const res = await fetch(
-        "http://localhost:5000/requests"
+        `${API}/requests`
     );
 
     const data = await res.json();
@@ -77,28 +80,39 @@ async function approvePlayer(id){
     ).value;
 
     if(!password){
+
         alert("Enter Password");
+
         return;
     }
 
     try{
 
         const res = await fetch(
-            `http://localhost:5000/approve/${id}`,
+
+            `${API}/approve/${id}`,
+
             {
                 method:"POST",
+
                 headers:{
-                    "Content-Type":"application/json"
+                    "Content-Type":
+                    "application/json"
                 },
+
                 body:JSON.stringify({
                     password
                 })
             }
+
         );
 
         if(!res.ok){
 
-            alert("Wrong Password");
+            alert(
+                "Wrong Password"
+            );
+
             return;
 
         }
@@ -127,6 +141,8 @@ async function approvePlayer(id){
         alert(
             "Server Error"
         );
+
+        console.log(err);
 
     }
 
