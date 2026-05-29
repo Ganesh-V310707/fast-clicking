@@ -1,5 +1,8 @@
 let playerId = null;
 
+const API =
+"https://fast-clicking-production.up.railway.app";
+
 const payBtn =
 document.getElementById("payBtn");
 
@@ -19,37 +22,49 @@ async () => {
         return;
     }
 
-    const res =
-    await fetch(
-        "http://localhost:5000/request-payment",
-        {
-            method:"POST",
+    try{
 
-            headers:{
-                "Content-Type":
-                "application/json"
-            },
+        const res =
+        await fetch(
+            `${API}/request-payment`,
+            {
+                method:"POST",
 
-            body:JSON.stringify({
-                name
-            })
-        }
-    );
+                headers:{
+                    "Content-Type":
+                    "application/json"
+                },
 
-    const data =
-    await res.json();
+                body:JSON.stringify({
+                    name
+                })
+            }
+        );
 
-    playerId = data.id;
+        const data =
+        await res.json();
 
-    document.getElementById(
-        "paymentSection"
-    ).style.display="none";
+        playerId = data.id;
 
-    document.getElementById(
-        "waitingSection"
-    ).style.display="block";
+        document.getElementById(
+            "paymentSection"
+        ).style.display="none";
 
-    checkApproval();
+        document.getElementById(
+            "waitingSection"
+        ).style.display="block";
+
+        checkApproval();
+
+    }catch(err){
+
+        alert(
+            "Server Connection Error"
+        );
+
+        console.log(err);
+
+    }
 
 });
 
@@ -62,7 +77,7 @@ function checkApproval(){
 
             const res =
             await fetch(
-            `http://localhost:5000/status/${playerId}`
+            `${API}/status/${playerId}`
             );
 
             const data =
@@ -110,7 +125,7 @@ function startGame(){
 
     document.getElementById(
         "gameSection"
-    ).style.display="block";
+    ).style.display = "block";
 
     const gameInterval =
     setInterval(()=>{
