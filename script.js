@@ -3,8 +3,25 @@ let playerId = null;
 const API =
 "https://fast-clicking-production.up.railway.app";
 
+const openUpiBtn =
+document.getElementById(
+    "openUpiBtn"
+);
+
+openUpiBtn.addEventListener(
+    "click",
+    () => {
+
+        window.location.href =
+        "upi://pay?pa=9490677989@iob&pn=Ganesh&am=5&cu=INR";
+
+    }
+);
+
 const payBtn =
-document.getElementById("payBtn");
+document.getElementById(
+    "payBtn"
+);
 
 payBtn.addEventListener(
 "click",
