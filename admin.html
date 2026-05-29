@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+</head>
+<body>
+
+<h1>Admin Panel</h1>
+
+<input
+    type="password"
+    id="password"
+    placeholder="Admin Password"
+    style="height:40px;width:300px;"
+>
+
+<button onclick="loadRequests()">
+    Load Requests
+</button>
+
+<hr>
+
+<div id="requests"></div>
+
+<script>
+
+async function loadRequests(){
+
+    const res = await fetch(
+        "http://localhost:5000/requests"
+    );
+
+    const data = await res.json();
+
+    let html = "";
+
+    data.forEach(player => {
+
+        html += `
+        <div style="
+            border:1px solid black;
+            padding:10px;
+            margin:10px;
+        ">
+
+            <h3>${player.name}</h3>
+
+            <p>
+                Status:
+                ${player.approved ? "Approved" : "Pending"}
+            </p>
+
+            ${
+                !player.approved
+                ?
+                `<button onclick="approvePlayer('${player.id}')">
+                    Approve
+                 </button>`
+                :
+                ""
+            }
+
+        </div>
+        `;
+    });
+
+    document.getElementById(
+        "requests"
+    ).innerHTML = html;
+}
+
+async function approvePlayer(id){
+
+    const password =
+    document.getElementById(
+        "password"
+    ).value;
+
+    if(!password){
+        alert("Enter Password");
+        return;
+    }
+
+    try{
+
+        const res = await fetch(
+            `http://localhost:5000/approve/${id}`,
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    password
+                })
+            }
+        );
+
+        if(!res.ok){
+
+            alert("Wrong Password");
+            return;
+
+        }
+
+        const data =
+        await res.json();
+
+        if(data.success){
+
+            alert(
+                "Player Approved"
+            );
+
+            loadRequests();
+
+        }else{
+
+            alert(
+                "Wrong Password"
+            );
+
+        }
+
+    }catch(err){
+
+        alert(
+            "Server Error"
+        );
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

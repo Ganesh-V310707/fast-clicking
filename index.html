@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lightning Click</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+<a  href="admin.html" style="text-decoration: none;">🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴🔴</a>
+    <h1>⚡ Lightning Click</h1>
+
+    <div id="paymentSection">
+
+        <input
+            type="text"
+            id="playerName"
+            placeholder="Enter Your Name"
+            style="padding:10px;width:250px;"
+        >
+
+        <br><br>
+
+        <h3>Pay ₹5 To</h3>
+
+        <p style="font-size:20px;font-weight:bold;">
+            9490677989@iob
+        </p>
+
+        <img
+        src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=9490677989@iob&pn=Ganesh&am=5&cu=INR"
+        alt="UPI QR Code"
+        >
+
+        <br><br>
+
+        <button id="payBtn">
+            I Have Paid ₹5
+        </button>
+
+    </div>
+
+    <div
+    id="waitingSection"
+    style="display:none;"
+    >
+
+        <h2>
+            Payment Request Sent
+        </h2>
+
+        <p>
+            Waiting For Approval...
+        </p>
+
+    </div>
+
+    <div
+    id="gameSection"
+    style="display:none;"
+    >
+
+        <h2>
+            Time Left:
+            <span id="timer">
+                10
+            </span>
+        </h2>
+
+        <h2>
+            Score:
+            <span id="score">
+                0
+            </span>
+        </h2>
+
+        <button id="clickBtn">
+            TAP FAST!
+        </button>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
